@@ -1,0 +1,89 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.size{
+    background-color: rgba(0, 0, 0, 0.205);
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    height: 100vh;
+}
+.container{
+    background-color: rgb(22, 158, 192);
+    height: 50%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 8px;
+}
+.sun{
+    height: 40%;
+    display: flex;
+    align-items: center;
+}
+.fa-sun{
+    animation: rotation 10s infinite linear;
+    color: rgb(255, 196, 0);
+}
+@keyframes rotation{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.waves{
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+    position: relative;
+}
+.wave{
+    background-color: rgb(231, 231, 231);
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    opacity: 0.3;
+}
+.wave1{
+    top:150px;
+    width: 450px;
+}
+.wave2{
+    top: 200px;
+    width: 655px;
+}
+.wave{
+    animation: rotation 8s infinite linear;
+}
+.city{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+#day-date{
+    margin-bottom: 8px;
+    color: rgb(76, 71, 71);
+}
+#temp{
+    margin-bottom: 2px;
+    font-size: 20px;
+    font-weight: 600;
+}
+#min-max{
+    color:rgb(76, 71, 71) ;
+}
