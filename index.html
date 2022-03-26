@@ -5,15 +5,118 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LiveWeather</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
     <!-- font awesome icon link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.size{
+    background-color: rgba(0, 0, 0, 0.205);
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    height: 100vh;
+}
+.container{
+    background-color: rgb(22, 158, 192);
+    height: 50%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 8px;
+}
+.sun{
+    height: 40%;
+    display: flex;
+    align-items: center;
+}
+.fa-sun{
+    animation: rotation 10s infinite linear;
+    color: rgb(255, 196, 0);
+}
+.fa-cloud{
+    /* animation: line 5s infinite linear; */
+    color: whitesmoke;
+}
+@keyframes rotation{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+/* @keyframes line{
+    from{
+        transform:translatex(3px);
+    }
+    to{
+        transform: translatex(3px);
+    } */
+/* } */
+.waves{
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+    position: relative;
+}
+.wave{
+    background-color: rgb(231, 231, 231);
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    opacity: 0.3;
+}
+.wave1{
+    top:150px;
+    width: 450px;
+}
+.wave2{
+    top: 200px;
+    width: 655px;
+}
+.wave{
+    animation: rotation 8s infinite linear;
+}
+.city{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+#day-date{
+    margin-bottom: 8px;
+    color: rgb(76, 71, 71);
+}
+#temp{
+    margin-bottom: 2px;
+    font-size: 20px;
+    font-weight: 600;
+}
+#min-max{
+    color:rgb(76, 71, 71) ;
+}
+
+    </style>
 </head>
 <body>
 <div class="size">
 <div class="container">
     <div class="sun">
-        <i class="fa-solid fa-sun" style="font-size:60px;"></i>
+        <i class="fa-solid fa-sun" style="font-size:60px;" id="climate-icon"></i>
         <div class="waves">
             <div class="wave wave1"></div>
             <div class="wave wave2"></div>
@@ -26,12 +129,65 @@
         </div>
         <div class="content-temp">
             <!-- for degree celsius -->
-            <h5 id="temp">22.47 <span>&#8451;</span></h5>
-            <p id="min-max">Min 20.12 <span>&#8451;</span> | Max 28.22 <span>&#8451;</span></p>
+            <h5 id="temp">{%tempval%} <span>&#8451;</span></h5>
+            <p id="min-max">Min {%tempmin%} <span>&#8451;</span> | Max {%tempmax%} <span>&#8451;</span></p>
         </div>
     </div>
 </div>
 </div>
-    <script src="./index.js"></script>
+
+
+<script>
+var dayDate = document.getElementById("day-date");
+var climateIcon = document.querySelector("#climate-icon");
+var tempstatus = "{%tempStatus%}";
+
+// if(tempstatus == "Clouds"){
+//     climateIcon.innerHTML = "<i class='fa-solid fa-cloud'style='font-size:60px' id='climate-icon'></i>";
+// }
+// else if(tempstatus == "Sunny"){
+//     climateIcon.innerHTML = "<i class='fa-solid fa-sun'style='font-size:60px' id='climate-icon' ></i>";
+// }
+// else if(tempstatus == "Rainy"){
+//     climateIcon.innerHTML = "<i class='fa-solid fa-cloud-rain'style='font-size:60px' id='climate-icon'></i>";
+// }
+// else{
+//     climateIcon.innerHTML = "<i class='fa-solid fa-cloud'style='font-size:60px' id='climate-icon'></i>";
+// }
+var currentDay = () => {
+    let dayArr = ["SUN","MON","TUE","WED","THUR","FRI","SAT"]
+    let monthArr = ["JAN","FEB","MARCH","APRIL","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"];
+    var d = new Date();
+    var day = dayArr[d.getDay()];
+    var date = d.getDate();
+    var mon = monthArr[d.getMonth()];
+    var resultDay = `${day} | ${mon} ${date}`;
+    return resultDay; 
+}
+
+// console.log(currentDay());
+// currentDay();
+
+var currentTime = () =>{
+    var dt = new Date();
+    var hours = dt.getHours();
+    var min = dt.getMinutes();
+    var amPM = "AM";
+    if(hours > 11){
+        amPM = "PM";
+        hours = hours - 12;
+    }
+    if(min < 10){
+        min = "0" + min;
+    }
+    var resultTime = `${hours}:${min} ${amPM}`;
+    return resultTime;
+}
+
+// console.log(currentTime());
+// currentTime();
+
+dayDate.innerHTML = currentDay() + " | " + currentTime();
+</script>
 </body>
 </html>
